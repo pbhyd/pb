@@ -85,13 +85,73 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;height:64px;display:flex;ali
 .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 @media(min-width:800px){.nav-links{display:flex}.hamburger{display:none}}
 
+/* ===== menu-bar-dropdown ===== */
+/* Basic Reset */
+    @media (min-width: 1024px) {
+        nav.menu-bar-dropdown ul {
+            font-weight: 600;
+            letter-spacing: .1em;
+            color: rgba(255, 255, 255, .6);
+            transition: color .2s;
+        }
+
+        /* Top level items */
+        nav.menu-bar-dropdown .nav-item {
+            position: relative;
+        }
+
+        nav.menu-bar-dropdown .nav-item a {
+            text-decoration: none;
+            color: #FFFFFF;
+            font-weight: bold;
+        }
+
+        nav.menu-bar-dropdown .nav-item a:hover {
+          color: #C3B1E1;
+          text-shadow: 0 0 10px #C3B1E1, 0 0 20px #C3B1E1, 0 0 30px #C3B1E1;
+        }
+
+        /* Dropdown styling */
+        nav.menu-bar-dropdown .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(12,9,22,.88);
+            min-width: 220px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+
+        nav.menu-bar-dropdown .dropdown a {
+            display: block;
+            padding: 10px 15px;
+            font-weight: normal;
+            border-bottom: 1px solid #bbb;
+        }
+
+        nav.menu-bar-dropdown .dropdown a:hover {
+            background-color: rgba(12,9,22,.88);
+            color: #C3B1E1;
+            text-shadow: 0 0 10px #C3B1E1, 0 0 20px #C3B1E1, 0 0 30px #C3B1E1;
+        }
+
+        /* Show dropdown on hover */
+        nav.menu-bar-dropdown .nav-item:hover .dropdown {
+            display: block;
+        }
+      }
+    
+
+
 /* ===== MOBILE MENU ===== */
-#mob-menu{display:none;position:fixed;inset:0;z-index:950;background:rgba(12,9,22,.97);backdrop-filter:blur(20px);flex-direction:column;align-items:center;justify-content:center;gap:1.8rem}
+#mob-menu{display:none;position:fixed;inset:0;z-index:950;background:rgba(12,9,22,.97);backdrop-filter:blur(20px);flex-direction:column;align-items:baseline;gap:0.5rem; padding: 3rem; overflow: scroll;}
 #mob-menu.open{display:flex}
-#mob-menu a{font-size:1.25rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.75);transition:color .2s;padding:.3rem}
+#mob-menu a{font-size:1.25rem;font-weight:600;letter-spacing:.06em;color:rgba(255,255,255,.75);transition:color .2s;padding:.3rem}
 #mob-menu a:hover{color:#fff}
 #mob-menu .mob-cta{background:var(--lav-deep);color:#fff;padding:.75rem 2.5rem;border-radius:100px;font-size:1rem}
 #mob-menu .mob-x{position:absolute;top:1.2rem;right:1.2rem;background:rgba(255,255,255,.1);border:none;color:#fff;width:44px;height:44px;border-radius:50%;font-size:1.6rem;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#mob-menu .move-right{padding-left: 2rem}
 
 /* ===== HERO ===== */
 .hero{min-height:100svh;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;background:var(--night)}
@@ -775,15 +835,47 @@ input[type=date]:focus{border-color:var(--lav-deep)}
 </head>
 <body>
 
-<nav id="nav">
-  <a class="nav-logo" href="#top"><img alt="Pure Bakes | Wedding Cakes" src="../img/pure-bakes-logo.png" style="height: 6rem; margin-top: 1rem;"></a>
+<nav id="nav" class='menu-bar-dropdown'>
+  <a class="nav-logo" href="#"><img alt="Pure Bakes | Wedding Cakes" src="../img/pure-bakes-logo.png" style="height: 6rem; margin-top: 1rem;"></a>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#process">Process</a></li>
-    <li><a href="#gallery">Gallery</a></li>
-    <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#faq">FAQ</a></li>
-    <li><a href="purebakes_v2.html">Main Site</a></li>
+    <li class="nav-item"><a href="#">Home</a></li>
+        
+    <!-- Wedding & Engagement -->
+    <li class="nav-item">
+        <a>Wedding & Engagement ▾</a>
+        <div class="dropdown">
+            <a href="https://weddingcakeshyderabad.in/" target="_new">Wedding Cakes</a>
+            <a href="engagement-cakes-in-hyderabad">Engagement Cakes</a>
+            <a href="bridal-shower-cakes-in-hyderabad">Bridal Shower Cakes</a>
+        </div>
+    </li>
+
+    <!-- Birthday Cakes -->
+    <li class="nav-item">
+        <a>Birthday Cakes ▾</a>
+        <div class="dropdown">
+            <a href="birthday-cakes-in-hyderabad">Customised Birthday Cakes</a>
+            <a href="first-birthday-cakes-for-girls-in-hyderabad">First Birthday - Girls</a>
+            <a href="first-birthday-cakes-for-boys-in-hyderabad">First Birthday - Boys</a>
+            <a href="half-birthday-cakes-in-hyderabad">Half Birthday Cakes</a>
+            <a href="cake-smash-in-hyderabad">Cake Smash</a>
+        </div>
+    </li>
+
+    <!-- Special Occasions -->
+    <li class="nav-item">
+        <a>Special Occasions ▾</a>
+        <div class="dropdown">
+            <a href="anniversary-cakes-in-hyderabad">Anniversary Cakes</a>
+            <a href="baby-shower-cakes-in-hyderabad">Baby Shower Cakes</a>
+            <a href="baby-announcement-cakes-in-hyderabad">Baby Announcement</a>
+            <a href="bon-voyage-cakes-in-hyderabad">Bon Voyage Cakes</a>
+        </div>
+    </li>
+
+    <li class="nav-item"><a href="gallery">Gallery</a></li>
+    <li class="nav-item"><a href="baking-classes">Baking Classes</a></li>
+    
     <li><a href="#order" class="nav-cta" onclick="event.preventDefault();openModal()">Order Now</a></li>
   </ul>
   <button class="hamburger" id="ham" onclick="toggleMenu()" aria-label="Menu">
@@ -792,12 +884,26 @@ input[type=date]:focus{border-color:var(--lav-deep)}
 </nav>
 <div id="mob-menu">
   <button class="mob-x" onclick="closeMenu()">×</button>
-  <a href="#about" onclick="closeMenu()">About</a>
-  <a href="#process" onclick="closeMenu()">Process</a>
-  <a href="#gallery" onclick="closeMenu()">Gallery</a>
-  <a href="#pricing" onclick="closeMenu()">Pricing</a>
-  <a href="#faq" onclick="closeMenu()">FAQ</a>
-  <a href="purebakes_v2.html" onclick="closeMenu()">Main Site</a>
+
+  <a href="#" onclick="closeMenu()">Home</a>
+  <a >Wedding ▾</a>
+  <a class='move-right' href="https://weddingcakeshyderabad.in/" target="_new" onclick="closeMenu()">Wedding</a>
+  <a class='move-right' href="engagement-cakes-in-hyderabad" onclick="closeMenu()">Engagement</a>
+  <a class='move-right' href="bridal-shower-cakes-in-hyderabad" onclick="closeMenu()">Bridal Shower</a>
+  <a >Birthday ▾</a>
+  <a class='move-right' href="birthday-cakes-in-hyderabad" onclick="closeMenu()">Birthday</a>
+  <a class='move-right' href="first-birthday-cakes-for-girls-in-hyderabad" onclick="closeMenu()">First Birthday - Girls</a>
+  <a class='move-right' href="first-birthday-cakes-for-boys-in-hyderabad" onclick="closeMenu()">First Birthday - Boys</a>
+  <a class='move-right' href="half-birthday-cakes-in-hyderabad" onclick="closeMenu()">Half Birthday</a>
+  <a class='move-right' href="cake-smash-in-hyderabad" onclick="closeMenu()">Cake Smash</a>
+  <a>Special Occasion ▾</a>
+  <a class='move-right' href="anniversary-cakes-in-hyderabad" onclick="closeMenu()">Anniversary</a>
+  <a class='move-right' href="baby-shower-cakes-in-hyderabad" onclick="closeMenu()">Baby Shower</a>
+  <a class='move-right' href="baby-announcements-cake-hyderabad" onclick="closeMenu()">Baby Announcement</a>
+  <a class='move-right' href="bon-voyage-cakes-in-hyderabad" onclick="closeMenu()">Bon Voyage</a>
+  <a href="gallery" onclick="closeMenu()">Gallery</a>
+  <a href="baking-classes" onclick="closeMenu()">Baking Classes</a>
+
   <a href="#" class="mob-cta" onclick="closeMenu();openModal()">Order Your Cake</a>
 </div>
 
