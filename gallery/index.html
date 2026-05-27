@@ -1109,13 +1109,35 @@ document.querySelectorAll('.g-card img').forEach(function(img){
 })();
 
 const searchInput = document.getElementById('cakeSearch');
-searchInput.addEventListener('input', function () {
-  const term = this.value.trim().toLowerCase();
-  document.querySelectorAll('[data-title]').forEach(function (card) {
-    const title = (card.getAttribute('data-title') || '').toLowerCase();
-    card.style.display = (!term || title.includes(term)) ? '' : 'none';
-  });
+
+function filterGallery(term) {
+const t = term.trim().toLowerCase();
+document.querySelectorAll('[data-title]').forEach(function (card) {
+  const title = (card.getAttribute('data-title') || '').toLowerCase();
+  card.style.display = (!t || title.includes(t)) ? '' : 'none';
 });
+}
+
+// Sync input value to URL query param on every keystroke
+searchInput.addEventListener('input', function () {
+const term = this.value;
+const url = new URL(window.location);
+if (term.trim()) {
+  url.searchParams.set('search', term);
+} else {
+  url.searchParams.delete('search');
+}
+history.replaceState(null, '', url);
+filterGallery(term);
+});
+
+// On page load, read ?search= from URL and pre-fill + filter
+const params = new URLSearchParams(window.location.search);
+const initial = params.get('search') || '';
+if (initial) {
+searchInput.value = initial;
+filterGallery(initial);
+}
 
 </script>
 <script data-goatcounter="https://purebakes.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
