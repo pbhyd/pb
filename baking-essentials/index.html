@@ -1126,6 +1126,20 @@ input[type=date]:focus{border-color:var(--lav-deep)}
 .editorial p{font-size:.87rem;color:var(--muted,#9a93a8);line-height:1.78;margin-bottom:.9rem}
 .editorial strong{color:var(--dark,#2a2230)}
 
+/* ══ SHOP SEARCH BOX (additive) ══ */
+.shop-search-bar{background:#fff;border-bottom:1px solid var(--border,#e4ddf0);padding:1.1rem 1.25rem}
+.shop-search-inner{max-width:600px;margin:0 auto;position:relative;display:flex;align-items:center}
+.shop-search-inner svg{position:absolute;left:14px;width:18px;height:18px;color:var(--muted,#9a93a8);pointer-events:none}
+#shop-search-input{width:100%;padding:.85rem 2.6rem;border:1.5px solid var(--lav,#d4c8e8);border-radius:100px;font-family:'Jost',sans-serif;font-size:.88rem;color:var(--dark,#2a2230);background:var(--lav-pale,#f3f0f9);outline:none;transition:border-color .2s,background .2s;box-sizing:border-box}
+#shop-search-input:focus{border-color:var(--lav-deep,#9b88c0);background:#fff}
+#shop-search-input::placeholder{color:var(--muted,#9a93a8)}
+#shop-search-clear{position:absolute;right:10px;width:26px;height:26px;border-radius:50%;border:none;background:var(--lav,#d4c8e8);color:var(--dark,#2a2230);font-size:1rem;line-height:1;cursor:pointer;display:none;align-items:center;justify-content:center;padding:0}
+#shop-search-clear.show{display:flex}
+.shop-search-status{text-align:center;font-size:.76rem;color:var(--muted,#9a93a8);margin-top:.6rem;min-height:1rem}
+.shop-empty-state{display:none;text-align:center;padding:3rem 1.25rem;color:var(--muted,#9a93a8);font-size:.9rem;max-width:1200px;margin:0 auto}
+.shop-empty-state.show{display:block}
+.cat-hidden{display:none !important}
+.prod-hidden{display:none !important}
 </style>
 </head>
 <body>
@@ -1161,7 +1175,17 @@ input[type=date]:focus{border-color:var(--lav-deep)}
 </section>
 
 <!-- ═══ CATEGORY NAV ═══ -->
-<nav class="shop-nav">
+<div class="shop-search-bar">
+  <div class="shop-search-inner">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    <input type="text" id="shop-search-input" placeholder="Search products… (e.g. piping nozzle, chocolate, OTG)" oninput="filterShopProducts()" autocomplete="off">
+    <button type="button" id="shop-search-clear" onclick="clearShopSearch()" aria-label="Clear search">&times;</button>
+  </div>
+  <div class="shop-search-status" id="shop-search-status"></div>
+</div>
+<div class="shop-empty-state" id="shop-empty-state">No products match your search. Try a different keyword.</div>
+
+<nav class="shop-nav" style="display: none">
   <div class="shop-nav-inner">
     <a href="#ovens" class="shop-chip">🔥 Ovens, Mixers & Blenders <span class="chip-count">8</span></a>
 <a href="#piping" class="shop-chip">🎨 Piping Nozzles & Decorating Tools <span class="chip-count">17</span></a>
@@ -1178,7 +1202,7 @@ input[type=date]:focus{border-color:var(--lav-deep)}
 </nav>
 
 <!-- ═══ TRUST STRIP ═══ -->
-<section class="sec" style="padding:3rem 0 2.5rem">
+<section class="sec" style="padding:3rem 0 2.5rem; display: none;">
   <div class="wrap">
     <div class="shop-trust reveal">
       <div class="shop-trust-item"><div class="sti-icon">🧁</div><div class="sti-txt">Used in our own kitchen daily</div></div>
@@ -2453,6 +2477,50 @@ function closeLb(){document.getElementById('lb').classList.remove('open');docume
 (function(){var els=document.querySelectorAll('.reveal');if('IntersectionObserver' in window){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}});},{threshold:.08});els.forEach(function(el){obs.observe(el)})}else{els.forEach(function(el){el.classList.add('in')})}})();
 window.addEventListener('scroll',function(){var n=document.getElementById('nav');if(n)n.style.background=window.scrollY>60?'rgba(7,4,14,.97)':'rgba(12,9,22,.88)'},{passive:true});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeMenu();closeModal();closeLb()}});
+</script>
+
+<!-- Shop search (additive, separate script — does not modify anything above) -->
+<script>
+function filterShopProducts(){
+  var input = document.getElementById('shop-search-input');
+  var term = input.value.trim().toLowerCase();
+  var clearBtn = document.getElementById('shop-search-clear');
+  var status = document.getElementById('shop-search-status');
+  var emptyState = document.getElementById('shop-empty-state');
+  clearBtn.classList.toggle('show', term.length > 0);
+
+  var totalVisible = 0;
+  document.querySelectorAll('.prod-card').forEach(function(card){
+    var titleEl = card.querySelector('.prod-title');
+    var title = titleEl ? titleEl.textContent.toLowerCase() : '';
+    var section = card.closest('section');
+    var catEl = section ? section.querySelector('.shop-cat-title') : null;
+    var catText = catEl ? catEl.textContent.toLowerCase() : '';
+    var match = term === '' || title.indexOf(term) !== -1 || catText.indexOf(term) !== -1;
+    card.classList.toggle('prod-hidden', !match);
+    if (match) totalVisible++;
+  });
+
+  document.querySelectorAll('.prod-grid').forEach(function(grid){
+    var section = grid.closest('section');
+    if (!section) return;
+    var anyVisible = grid.querySelectorAll('.prod-card:not(.prod-hidden)').length > 0;
+    section.classList.toggle('cat-hidden', term !== '' && !anyVisible);
+  });
+
+  if (term === '') {
+    status.textContent = '';
+  } else {
+    status.textContent = totalVisible + (totalVisible === 1 ? ' product found' : ' products found');
+  }
+  emptyState.classList.toggle('show', term !== '' && totalVisible === 0);
+}
+function clearShopSearch(){
+  var input = document.getElementById('shop-search-input');
+  input.value = '';
+  filterShopProducts();
+  input.focus();
+}
 </script>
 </body>
 </html>
