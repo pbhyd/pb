@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Redirecting...</title>
+</head>
+<body>
+
+<p>Redirecting...</p>
+
+<script>
+async function handleRedirect() {
+
+    const path = window.location.pathname.replace(/\/$/, '');
+
+    try {
+        const response = await fetch('./redirects.json');
+        const redirects = await response.json();
+
+        if (redirects[path]) {
+            window.location.replace(redirects[path]);
+            return;
+        }
+
+        document.body.innerHTML = `
+            <h1>404</h1>
+            <p>Page not found.</p>
+            <div><a href="https://purebakes.in/">Visit Main Site</a></div>
+        `;
+    }
+    catch(err) {
+        document.body.innerHTML = `
+            <h1>Error</h1>
+            <p>Unable to load redirects.</p>
+        `;
+    }
+}
+
+handleRedirect();
+</script>
+
+</body>
+</html>
