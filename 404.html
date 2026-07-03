@@ -161,6 +161,7 @@ async function handleRedirect() {
     catch(err) {
         
     }
+    document.querySelector(".container").style.display = "block"
 }
 
 handleRedirect();
@@ -169,7 +170,7 @@ handleRedirect();
 </head>
 <body>
 
-    <div class="container">
+    <div class="container" style='display: none;'>
         <!-- Embedded Image Block -->
         <img src="./img/404-pure-bakes.webp" alt="Baking 404 Error - Crumb Trails Lead Nowhere!" class="error-image">
 
