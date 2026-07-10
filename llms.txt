@@ -1,10 +1,19 @@
-# Pure Bakes — Luxury Custom Cake Studio, Hyderabad
+# Pure Bakes - Luxury Cake Studio in Hyderabad
 
-Pure Bakes is a luxury custom cake studio based in Hyderabad, India.
-We specialise in handcrafted cakes for weddings, birthdays, engagements,
-baby showers and corporate events. All cakes are available fully eggless.
-FSSAI certified. Operating since 2016. 500+ cakes delivered.
+> Pure Bakes is a luxury custom cake studio based in Hyderabad, India. We specialise in handcrafted cakes for weddings, birthdays, engagements, baby showers and corporate events. All cakes are available fully eggless. FSSAI certified. Operating since 2016. 500+ cakes delivered.
 
+
+## Core Offerings
+
+- [Customised Birthday Cakes](/img/customised-birthday-cakes/) - Bespoke designs for birthdays, including milestone, theme, and kids' cakes.
+- [Wedding & Engagement Cakes](/img/engagement/) - Elegant multi-tiered cakes for weddings, engagements, and receptions.
+- [Anniversary Cakes](/img/anniversary/) - Specialized romantic and celebration designs for anniversaries.
+- [Baby Shower & Announcement Cakes](/img/baby-shower/) - Creative themes for baby showers, gender reveals, and milestone announcements.
+- [Special Occasions](/img/bridal-shower/) - Custom cakes for bridal showers, bon voyage, and cake smash celebrations.
+
+## About & Service Areas
+
+Pure Bakes is a premium, handcrafted custom cake studio delivering across major areas in Hyderabad including Gachibowli, Jubilee Hills, HITEC City, Kokapet, Kondapur, and Madhapur.
 ## Services
 - Wedding cakes Hyderabad
 - Custom birthday cakes Hyderabad
