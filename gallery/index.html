@@ -1164,7 +1164,7 @@ applySearch(term);
 
 // On page load, read ?search= from URL and pre-fill + filter
 const params = new URLSearchParams(window.location.search);
-const initial = params.get('search') || '';
+var initial = params.get('search') || '';
 if (initial) {
 initial = initial === "all" ? "" : initial; // treat "all" as empty
 searchInput.value = initial;
